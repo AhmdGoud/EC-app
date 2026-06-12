@@ -1,0 +1,12 @@
+<svg width="1200" height="1200" viewBox="0 0 1200 1200" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="grad6" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#0ea5e9" />
+      <stop offset="100%" stop-color="#14b8a6" />
+    </linearGradient>
+  </defs>
+  <rect width="1200" height="1200" fill="url(#grad6)" />
+  <path d="M420 360c100-40 260-40 360 0v440H420V360z" fill="rgba(255,255,255,0.18)" rx="100" />
+  <path d="M520 360c40-120 180-120 220 0" fill="none" stroke="#fff" stroke-width="34" stroke-linecap="round" />
+  <text x="50%" y="940" text-anchor="middle" font-family="Inter, sans-serif" font-size="84" fill="#fff" font-weight="700">Tech Mesh Hoodie</text>
+</svg>
