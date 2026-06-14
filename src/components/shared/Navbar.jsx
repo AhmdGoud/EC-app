@@ -3,6 +3,7 @@ import MobilePanel from "./MobilePanel";
 
 import cart from "../../assets/icons/cart-outline.svg";
 import search from "../../assets/icons/search-outline.svg";
+import { Link } from "react-router-dom";
 
 function Navbar() {
   const [menuOpen, setMenuOpen] = useState(false);
@@ -81,12 +82,14 @@ function Navbar() {
         </button>
 
         {/* Cart and Auth buttons*/}
-        <button className="hidden md:inline-flex items-center rounded-full border border-slate-200 bg-white px-3 py-1 text-sm font-semibold text-slate-700 transition hover:bg-slate-100">
-          <img src={cart} alt="Cart" className="h-6 w-6" />
-          <span className="-ml-2 -mt-4 inline-flex h-3 items-center justify-center rounded-full bg-rose-500 px-2 text-xs font-bold text-white">
-            2
-          </span>
-        </button>
+        <Link to="/cart">
+          <button className="hidden md:inline-flex items-center rounded-full border border-slate-200 bg-white px-3 py-1 text-sm font-semibold text-slate-700 transition hover:bg-slate-100">
+            <img src={cart} alt="Cart" className="h-6 w-6" />
+            <span className="-ml-2 -mt-4 inline-flex h-3 items-center justify-center rounded-full bg-rose-500 px-2 text-xs font-bold text-white">
+              2
+            </span>
+          </button>
+        </Link>
 
         <button className="hidden rounded-full border border-slate-200 bg-white px-4 py-2 text-sm font-semibold text-slate-700 transition hover:bg-slate-100 md:inline-flex">
           Sign in

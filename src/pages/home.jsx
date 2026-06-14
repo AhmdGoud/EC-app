@@ -1,9 +1,9 @@
-import Navbar from "../components/layouts/Navbar";
+import Navbar from "../components/shared/Navbar";
 import Hero from "../components/home/Hero";
 import Categories from "../components/home/Categories";
 import Products from "../components/home/Products";
 import Newsletter from "../components/home/Newsletter";
-import Footer from "../components/layouts/Footer";
+import Footer from "../components/shared/Footer";
 
 function Home() {
   return (

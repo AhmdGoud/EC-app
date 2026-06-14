@@ -1,10 +1,14 @@
-import Home from "./pages/home";
+import { Routes, Route } from "react-router-dom";
+
+import HomePage from "./pages/Home";
+import CartPage from "./pages/Cart";
 
 function App() {
   return (
-    <>
-      <Home />
-    </>
+    <Routes>
+      <Route path="/" element={<HomePage />} />
+      <Route path="/cart" element={<CartPage />} />
+    </Routes>
   );
 }
 
