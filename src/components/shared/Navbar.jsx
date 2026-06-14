@@ -16,15 +16,15 @@ function Navbar() {
           EC-Store
         </div>
         <nav className="hidden items-center gap-8 text-sm font-medium text-slate-600 md:flex">
-          <a href="#home" className="transition hover:text-slate-900">
-            Home
-          </a>
-          <a href="#shop" className="transition hover:text-slate-900">
-            Shop
-          </a>
-          <a href="#contact" className="transition hover:text-slate-900">
-            Contact
-          </a>
+          <Link to="/">
+            <p className="transition hover:text-slate-900">Home</p>
+          </Link>
+          <Link to="/products">
+            <p className="transition hover:text-slate-900">Shop</p>
+          </Link>
+          <Link to="/contact">
+            <p className="transition hover:text-slate-900">Contact</p>
+          </Link>
         </nav>
       </div>
 

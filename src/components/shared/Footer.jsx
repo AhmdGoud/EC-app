@@ -26,7 +26,7 @@ function Footer() {
               Contact
             </p>
             <p className="mt-4 text-sm text-slate-300">123 Fashion Street</p>
-            <p className="text-sm text-slate-300">hello@EC-Store.com</p>
+            <p className="text-sm text-slate-300">hello@ec-store.com</p>
             <p className="text-sm text-slate-300">+1 (555) 123-4567</p>
           </div>
         </div>

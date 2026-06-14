@@ -1,4 +1,4 @@
-import Cart from "../components/cart/ShoppingCart";
+import Cart from "../components/cart/Cart";
 import Footer from "../components/shared/Footer";
 import Navbar from "../components/shared/Navbar";
 
