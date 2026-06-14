@@ -1,28 +1,38 @@
+import { Link } from "react-router-dom";
+import cart from "../../assets/icons/cart-outline.svg";
+
 function MobilePanel() {
   return (
     <>
       <div className="absolute left-0 right-0 top-full z-40 mt-2 rounded-b-lg bg-white shadow-md md:hidden">
         <div className="px-4 py-4">
           <nav className="flex flex-col gap-3 text-sm font-medium text-slate-700">
-            <a
-              href="#home"
-              className="block rounded-md px-2 py-2 hover:bg-slate-50"
-            >
-              Home
-            </a>
-            <a
-              href="#shop"
-              className="block rounded-md px-2 py-2 hover:bg-slate-50"
-            >
-              Shop
-            </a>
-            <a
-              href="#contact"
-              className="block rounded-md px-2 py-2 hover:bg-slate-50"
-            >
-              Contact
-            </a>
+            <Link to="/">
+              <p className="block rounded-md px-2 py-2 hover:bg-slate-50">
+                Home
+              </p>
+            </Link>
+            <Link to="/products">
+              <p className="block rounded-md px-2 py-2 hover:bg-slate-50">
+                Products
+              </p>
+            </Link>
+            <Link to="/contact">
+              <p className="block rounded-md px-2 py-2 hover:bg-slate-50">
+                Contact
+              </p>
+            </Link>
           </nav>
+
+          <div className="mt-4 flex flex-col gap-2">
+            <Link
+              to="/cart"
+              className="inline-flex items-center gap-2 rounded-full border border-slate-200 bg-white px-4 py-3 text-sm font-semibold text-slate-700 transition hover:bg-slate-50"
+            >
+              <img src={cart} alt="Cart" className="h-5 w-5" />
+              Cart
+            </Link>
+          </div>
 
           <div className="mt-3">
             <form role="search" onSubmit={(e) => e.preventDefault()}>

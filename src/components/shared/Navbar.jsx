@@ -20,7 +20,7 @@ function Navbar() {
             <p className="transition hover:text-slate-900">Home</p>
           </Link>
           <Link to="/products">
-            <p className="transition hover:text-slate-900">Shop</p>
+            <p className="transition hover:text-slate-900">Products</p>
           </Link>
           <Link to="/contact">
             <p className="transition hover:text-slate-900">Contact</p>
