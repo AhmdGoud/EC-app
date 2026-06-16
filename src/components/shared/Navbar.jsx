@@ -5,12 +5,24 @@ import cart from "../../assets/icons/cart-outline.svg";
 import search from "../../assets/icons/search-outline.svg";
 import { Link } from "react-router-dom";
 
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
+import { logIn, signOut } from "../../store/authSlice";
+
+import items from "../../data/products.json";
+import SearchDropdown from "./SearchDropdown";
 
 function Navbar() {
   const [menuOpen, setMenuOpen] = useState(false);
+  const [searchInput, setsearchInput] = useState("");
+
+  const searchedItems = items.filter((item) =>
+    item.name.toLowerCase().includes(searchInput.toLowerCase()),
+  );
 
   const itemsNumber = useSelector((state) => state.cart.items.length);
+
+  const authStatus = useSelector((state) => state.auth.status);
+  const dispatch = useDispatch();
 
   return (
     <header className="relative mx-auto flex max-w-7xl items-center justify-between px-4 py-5 text-slate-900 sm:px-6 lg:px-8">
@@ -46,6 +58,8 @@ function Navbar() {
             <input
               id="nav-search"
               type="text"
+              value={searchInput}
+              onChange={(e) => setsearchInput(e.target.value)}
               placeholder="Search products..."
               className="w-full rounded-md border border-slate-200 bg-white px-4 py-2 text-sm text-slate-700 placeholder:text-slate-400 focus:border-slate-400 focus:outline-none"
             />
@@ -56,6 +70,7 @@ function Navbar() {
             >
               <img src={search} alt="Search" className="h-5 w-5" />
             </button>
+            <SearchDropdown items={searchedItems} searchQuery={searchInput} />
           </div>
         </form>
       </div>
@@ -99,12 +114,28 @@ function Navbar() {
           </button>
         </Link>
 
-        <button className="hidden rounded-full border border-slate-200 bg-white px-4 py-2 text-sm font-semibold text-slate-700 transition hover:bg-slate-100 md:inline-flex">
-          Sign in
-        </button>
-        <button className="hidden md:inline-flex rounded-full bg-slate-900 px-5 py-2 text-sm font-semibold text-white transition hover:bg-slate-800">
-          Sign up
-        </button>
+        {authStatus ? (
+          <>
+            <button
+              onClick={() => dispatch(signOut())}
+              className="hidden rounded-full border border-slate-200 bg-white px-4 py-2 text-sm font-semibold text-slate-700 transition hover:bg-slate-100 md:inline-flex"
+            >
+              Sign out
+            </button>
+          </>
+        ) : (
+          <>
+            <button
+              onClick={() => dispatch(logIn())}
+              className="hidden rounded-full border border-slate-200 bg-white px-4 py-2 text-sm font-semibold text-slate-700 transition hover:bg-slate-100 md:inline-flex"
+            >
+              Sign in
+            </button>
+            <button className="hidden md:inline-flex rounded-full bg-slate-900 px-5 py-2 text-sm font-semibold text-white transition hover:bg-slate-800">
+              Sign up
+            </button>
+          </>
+        )}
       </div>
     </header>
   );

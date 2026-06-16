@@ -6,7 +6,6 @@ import { addToCart } from "../../store/cartSlice";
 function ProductCard({ product }) {
   const [isWishlisted, setIsWishlisted] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
-
   const dispatch = useDispatch();
   const cartItems = useSelector((state) => state.cart.items || []);
   const isAdded = cartItems.some((item) => item.id === product.id);

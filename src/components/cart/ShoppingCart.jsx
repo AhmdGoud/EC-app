@@ -46,7 +46,7 @@ function ShoppingCart() {
                     type="button"
                     onClick={() =>
                       dispatch(
-                        updateQuantity({ productId: item.id, amount: -1 }),
+                        updateQuantity({ productId: item.id, delta: -1 }),
                       )
                     }
                     className="h-8 w-8 rounded-full bg-white text-slate-900 shadow-sm transition hover:bg-slate-100"
@@ -59,9 +59,7 @@ function ShoppingCart() {
                   <button
                     type="button"
                     onClick={() =>
-                      dispatch(
-                        updateQuantity({ productId: item.id, amount: 1 }),
-                      )
+                      dispatch(updateQuantity({ productId: item.id, delta: 1 }))
                     }
                     className="h-8 w-8 rounded-full bg-white text-slate-900 shadow-sm transition hover:bg-slate-100"
                   >
