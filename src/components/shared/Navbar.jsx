@@ -5,8 +5,12 @@ import cart from "../../assets/icons/cart-outline.svg";
 import search from "../../assets/icons/search-outline.svg";
 import { Link } from "react-router-dom";
 
+import { useSelector } from "react-redux";
+
 function Navbar() {
   const [menuOpen, setMenuOpen] = useState(false);
+
+  const itemsNumber = useSelector((state) => state.cart.items.length);
 
   return (
     <header className="relative mx-auto flex max-w-7xl items-center justify-between px-4 py-5 text-slate-900 sm:px-6 lg:px-8">
@@ -85,9 +89,13 @@ function Navbar() {
         <Link to="/cart">
           <button className="hidden md:inline-flex items-center rounded-full border border-slate-200 bg-white px-3 py-1 text-sm font-semibold text-slate-700 transition hover:bg-slate-100">
             <img src={cart} alt="Cart" className="h-6 w-6" />
-            <span className="-ml-2 -mt-4 inline-flex h-3 items-center justify-center rounded-full bg-rose-500 px-2 text-xs font-bold text-white">
-              2
-            </span>
+            {itemsNumber ? (
+              <span className="-ml-2 -mt-4 inline-flex h-3 items-center justify-center rounded-full bg-rose-500 px-2 text-xs font-bold text-white">
+                {itemsNumber}
+              </span>
+            ) : (
+              ""
+            )}
           </button>
         </Link>
 

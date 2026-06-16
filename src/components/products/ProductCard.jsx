@@ -1,9 +1,15 @@
 import { useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import ProductModal from "./ProductModal";
+import { addToCart } from "../../store/cartSlice";
 
 function ProductCard({ product }) {
   const [isWishlisted, setIsWishlisted] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
+
+  const dispatch = useDispatch();
+  const cartItems = useSelector((state) => state.cart.items || []);
+  const isAdded = cartItems.some((item) => item.id === product.id);
 
   return (
     <div className="relative overflow-hidden rounded-[2rem] border border-slate-200 bg-white shadow-sm transition hover:-translate-y-1 hover:shadow-md group">
@@ -34,8 +40,15 @@ function ProductCard({ product }) {
           {product.description}
         </p>
         <div className="mt-5 flex items-center gap-3">
-          <button className="inline-flex rounded-full bg-slate-900 px-4 py-2 text-sm font-semibold text-white transition hover:bg-slate-800">
-            Add to cart
+          <button
+            onClick={() => dispatch(addToCart(product))}
+            className={`inline-flex rounded-full px-4 py-2 text-sm font-semibold text-white transition ${
+              isAdded
+                ? "bg-green-600 hover:bg-green-700"
+                : "bg-slate-900 hover:bg-slate-800"
+            }`}
+          >
+            {isAdded ? "Added" : "Add to cart"}
           </button>
           <button
             onClick={() => setIsWishlisted(!isWishlisted)}

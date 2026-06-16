@@ -6,7 +6,9 @@ const CartPage = () => {
   return (
     <>
       <Navbar />
-      <Cart />
+      <main>
+        <Cart />
+      </main>
       <Footer />
     </>
   );
