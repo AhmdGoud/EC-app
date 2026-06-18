@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
 import cart from "../../assets/icons/cart-outline.svg";
 
-function MobilePanel() {
+function MobilePanel({ onOpenSignIn, onOpenSignUp }) {
   return (
     <>
       <div className="absolute left-0 right-0 top-full z-40 mt-2 rounded-b-lg bg-white shadow-md md:hidden">
@@ -51,10 +51,16 @@ function MobilePanel() {
           </div>
 
           <div className="mt-3 flex gap-2">
-            <button className="flex-1 rounded-full border border-slate-200 bg-white px-4 py-2 text-sm font-semibold text-slate-700 hover:bg-slate-50">
+            <button
+              onClick={onOpenSignIn}
+              className="flex-1 rounded-full border border-slate-200 bg-white px-4 py-2 text-sm font-semibold text-slate-700 hover:bg-slate-50"
+            >
               Sign in
             </button>
-            <button className="flex-1 rounded-full bg-slate-900 px-4 py-2 text-sm font-semibold text-white hover:bg-slate-800">
+            <button
+              onClick={onOpenSignUp}
+              className="flex-1 rounded-full bg-slate-900 px-4 py-2 text-sm font-semibold text-white hover:bg-slate-800"
+            >
               Sign up
             </button>
           </div>

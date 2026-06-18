@@ -2,11 +2,15 @@ import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import ProductModal from "./ProductModal";
 import { addToCart } from "../../store/cartSlice";
+import { useToast } from "../shared/Toast";
 
 function ProductCard({ product }) {
   const [isWishlisted, setIsWishlisted] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
+
   const dispatch = useDispatch();
+  const showToast = useToast();
+
   const cartItems = useSelector((state) => state.cart.items || []);
   const isAdded = cartItems.some((item) => item.id === product.id);
 
@@ -40,7 +44,11 @@ function ProductCard({ product }) {
         </p>
         <div className="mt-5 flex items-center gap-3">
           <button
-            onClick={() => dispatch(addToCart(product))}
+            onClick={() => {
+              if (isAdded) return;
+              dispatch(addToCart(product));
+              showToast(`${product.name} added to cart`);
+            }}
             className={`inline-flex rounded-full px-4 py-2 text-sm font-semibold text-white transition ${
               isAdded
                 ? "bg-green-600 hover:bg-green-700"

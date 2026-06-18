@@ -1,12 +1,16 @@
 import { useState } from "react";
+import { Link } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+
 import MobilePanel from "./MobilePanel";
+import AuthModal from "../forms/AuthModal";
+import SignIn from "../forms/SignIn";
+import SignUp from "../forms/SignUp";
+import { logIn } from "../../store/authSlice";
 
 import cart from "../../assets/icons/cart-outline.svg";
 import search from "../../assets/icons/search-outline.svg";
-import { Link } from "react-router-dom";
-
-import { useSelector, useDispatch } from "react-redux";
-import { logIn, signOut } from "../../store/authSlice";
+import person from "../../assets/icons/person-outline.svg";
 
 import items from "../../data/products.json";
 import SearchDropdown from "./SearchDropdown";
@@ -14,15 +18,28 @@ import SearchDropdown from "./SearchDropdown";
 function Navbar() {
   const [menuOpen, setMenuOpen] = useState(false);
   const [searchInput, setsearchInput] = useState("");
+  const [authModal, setAuthModal] = useState(null);
 
   const searchedItems = items.filter((item) =>
     item.name.toLowerCase().includes(searchInput.toLowerCase()),
   );
 
   const itemsNumber = useSelector((state) => state.cart.items.length);
-
   const authStatus = useSelector((state) => state.auth.status);
   const dispatch = useDispatch();
+
+  const openAuthModal = (type) => setAuthModal(type);
+  const closeAuthModal = () => setAuthModal(null);
+
+  const handleSignIn = () => {
+    dispatch(logIn());
+    closeAuthModal();
+  };
+
+  const handleSignUp = () => {
+    dispatch(logIn());
+    closeAuthModal();
+  };
 
   return (
     <header className="relative mx-auto flex max-w-7xl items-center justify-between px-4 py-5 text-slate-900 sm:px-6 lg:px-8">
@@ -76,7 +93,12 @@ function Navbar() {
       </div>
 
       {/* Mobile menu panel */}
-      {menuOpen && <MobilePanel />}
+      {menuOpen && (
+        <MobilePanel
+          onOpenSignIn={() => openAuthModal("signIn")}
+          onOpenSignUp={() => openAuthModal("signUp")}
+        />
+      )}
 
       <div className="flex items-center gap-3">
         {/* Mobile hamburger*/}
@@ -116,27 +138,40 @@ function Navbar() {
 
         {authStatus ? (
           <>
-            <button
-              onClick={() => dispatch(signOut())}
-              className="hidden rounded-full border border-slate-200 bg-white px-4 py-2 text-sm font-semibold text-slate-700 transition hover:bg-slate-100 md:inline-flex"
-            >
+            <button className="hidden rounded-full border border-slate-200 bg-white px-4 py-2 text-sm font-semibold text-slate-700 transition hover:bg-slate-100 md:inline-flex">
               Sign out
             </button>
+            <Link to="/profile">
+              <button className="hidden md:inline-flex items-center rounded-full border border-slate-200 bg-white px-3 py-1 text-sm font-semibold text-slate-700 transition hover:bg-slate-100">
+                <img src={person} alt="Cart" className="h-6 w-6" />
+              </button>
+            </Link>
           </>
         ) : (
           <>
             <button
-              onClick={() => dispatch(logIn())}
+              onClick={() => openAuthModal("signIn")}
               className="hidden rounded-full border border-slate-200 bg-white px-4 py-2 text-sm font-semibold text-slate-700 transition hover:bg-slate-100 md:inline-flex"
             >
               Sign in
             </button>
-            <button className="hidden md:inline-flex rounded-full bg-slate-900 px-5 py-2 text-sm font-semibold text-white transition hover:bg-slate-800">
+            <button
+              onClick={() => openAuthModal("signUp")}
+              className="hidden md:inline-flex rounded-full bg-slate-900 px-5 py-2 text-sm font-semibold text-white transition hover:bg-slate-800"
+            >
               Sign up
             </button>
           </>
         )}
       </div>
+
+      <AuthModal isOpen={Boolean(authModal)} onClose={closeAuthModal}>
+        {authModal === "signIn" ? (
+          <SignIn onSignIn={handleSignIn} />
+        ) : (
+          <SignUp onSignUp={handleSignUp} />
+        )}
+      </AuthModal>
     </header>
   );
 }
