@@ -47,7 +47,7 @@ function ProductCard({ product }) {
             onClick={() => {
               if (isAdded) return;
               dispatch(addToCart(product));
-              showToast(`${product.name} added to cart`);
+              showToast(`${product.name} added to cart`, "add");
             }}
             className={`inline-flex rounded-full px-4 py-2 text-sm font-semibold text-white transition ${
               isAdded
@@ -55,10 +55,15 @@ function ProductCard({ product }) {
                 : "bg-slate-900 hover:bg-slate-800"
             }`}
           >
-            {isAdded ? "Added" : "Add to cart"}
+            {isAdded ? "Item is added" : "Add to cart"}
           </button>
           <button
-            onClick={() => setIsWishlisted(!isWishlisted)}
+            onClick={() => {
+              setIsWishlisted(!isWishlisted);
+              showToast(
+                `${product.name} ${!isWishlisted ? "marked as wishlisted" : "removed from whislist"}`,
+              );
+            }}
             className={`inline-flex rounded-full px-4 py-2 text-sm font-semibold transition ${isWishlisted ? "bg-red-600 text-white" : "border bg-white text-slate-700 hover:bg-slate-100"}`}
           >
             ♥

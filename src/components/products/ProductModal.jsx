@@ -42,7 +42,7 @@ function ProductModal({ isOpen, product, onClose }) {
             </button>
           </div>
 
-          <div className="grid gap-6 lg:grid-cols-[1.2fr_0.8fr]">
+          <div className="grid gap-6 grid-cols-1 md:grid-cols-2 lg:grid-cols-[1.2fr_0.8fr]">
             <div className="space-y-4">
               <div className="overflow-hidden rounded-[1.5rem] bg-slate-100">
                 <img

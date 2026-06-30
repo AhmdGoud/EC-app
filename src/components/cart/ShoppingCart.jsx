@@ -1,9 +1,15 @@
 import { useDispatch, useSelector } from "react-redux";
-import { removeFromCart, updateQuantity } from "../../store/cartSlice";
+import {
+  removeFromCart,
+  updateQuantity,
+  clearCart,
+} from "../../store/cartSlice";
 
 function ShoppingCart() {
   const dispatch = useDispatch();
-  const cartItems = useSelector((state) => state.cart.items || []);
+
+  const cartItems = useSelector((state) => state.cart.items) || [];
+
   const total = cartItems.reduce(
     (sum, item) => sum + item.price * item.quantity,
     0,
@@ -11,9 +17,21 @@ function ShoppingCart() {
 
   return (
     <div className="bg-white rounded-lg shadow-md p-6">
-      <h2 className="text-2xl font-semibold text-slate-900 mb-6">
-        Shopping cart
-      </h2>
+      <div className="flex justify-between">
+        <h2 className="text-2xl font-semibold text-slate-900 mb-6">
+          Shopping cart
+        </h2>
+        {cartItems.length > 0 ? (
+          <p
+            onClick={() => dispatch(clearCart())}
+            className="font-semibold text-red-600 hover:text-red-700 hover:cursor-pointer"
+          >
+            Remove all
+          </p>
+        ) : (
+          ""
+        )}
+      </div>
 
       {cartItems.length === 0 ? (
         <p className="text-center text-slate-500 py-16">

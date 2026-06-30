@@ -1,8 +1,28 @@
 import { useState } from "react";
+import { useSelector } from "react-redux";
 
 function SignIn({ onSignIn }) {
   const [values, setValues] = useState({ email: "", password: "" });
   const [error, setError] = useState("");
+
+  const users = useSelector((state) => state.auth.users) || [];
+
+  function isUserExist() {
+    if (users) {
+      for (let user of users) {
+        if (user.email === values.email) {
+          if (user.password !== values.password) {
+            setError("password is not correct");
+            return false;
+          }
+
+          return true;
+        }
+      }
+      setError("email not registered");
+      return false;
+    }
+  }
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -18,8 +38,12 @@ function SignIn({ onSignIn }) {
       return;
     }
 
-    if (onSignIn) onSignIn({ email, password });
-    console.log("SignIn submit:", { email });
+    if (isUserExist()) {
+      onSignIn();
+    } else {
+      return;
+    }
+
     setValues({ email: "", password: "" });
   };
 
@@ -47,6 +71,10 @@ function SignIn({ onSignIn }) {
           />
         </label>
 
+        {error === "email not registered" && (
+          <p className="text-sm text-red-500">{error}</p>
+        )}
+
         <label className="block">
           <span className="text-sm font-medium text-slate-700">Password</span>
           <input
@@ -60,7 +88,9 @@ function SignIn({ onSignIn }) {
           />
         </label>
 
-        {error && <p className="text-sm text-red-500">{error}</p>}
+        {error === "password is not correct" && (
+          <p className="text-sm text-red-500">{error}</p>
+        )}
 
         <button
           type="submit"

@@ -1,4 +1,6 @@
 import { useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { addNewUser } from "../../store/authSlice";
 
 function SignUp({ onSignUp }) {
   const [values, setValues] = useState({
@@ -7,7 +9,30 @@ function SignUp({ onSignUp }) {
     password: "",
     confirm: "",
   });
+
   const [error, setError] = useState("");
+  const dispatch = useDispatch();
+
+  const { email, password } = values;
+  const newUser = {
+    email: email,
+    password: password,
+  };
+
+  const users = useSelector((state) => state.auth.users);
+
+  function isUserExist() {
+    if (users) {
+      for (let user of users) {
+        if (user.email === values.email) {
+          setError("sorry, this email already registered");
+          return true;
+        }
+      }
+    }
+
+    onSignUp();
+  }
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -27,8 +52,10 @@ function SignUp({ onSignUp }) {
       return;
     }
 
-    if (onSignUp) onSignUp({ name, email, password });
-    console.log("SignUp submit:", { email });
+    if (isUserExist()) return;
+
+    dispatch(addNewUser(newUser));
+
     setValues({ name: "", email: "", password: "", confirm: "" });
   };
 
@@ -69,6 +96,10 @@ function SignUp({ onSignUp }) {
           />
         </label>
 
+        {error === "sorry, this email already registered" && (
+          <p className="text-sm text-red-500">{error}</p>
+        )}
+
         <label className="block">
           <span className="text-sm font-medium text-slate-700">Password</span>
           <input
@@ -97,7 +128,9 @@ function SignUp({ onSignUp }) {
           />
         </label>
 
-        {error && <p className="text-sm text-red-500">{error}</p>}
+        {error === "Passwords do not match." && (
+          <p className="text-sm text-red-500">{error}</p>
+        )}
 
         <button
           type="submit"
