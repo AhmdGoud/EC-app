@@ -138,12 +138,14 @@ function Navbar() {
 
         {authStatus ? (
           <>
-            <button
-              onClick={() => dispatch(log())}
-              className="hidden rounded-full border border-slate-200 bg-white px-4 py-2 text-sm font-semibold text-slate-700 transition hover:bg-slate-100 md:inline-flex"
-            >
-              Sign out
-            </button>
+            <Link to="/">
+              <button
+                onClick={() => dispatch(log())}
+                className="hidden rounded-full border border-slate-200 bg-white px-4 py-2 text-sm font-semibold text-slate-700 transition hover:bg-slate-100 md:inline-flex"
+              >
+                Sign out
+              </button>
+            </Link>
             <Link to="/profile">
               <button className="hidden md:inline-flex items-center rounded-full border border-slate-200 bg-white px-3 py-1 text-sm font-semibold text-slate-700 transition hover:bg-slate-100">
                 <img src={person} alt="Cart" className="h-6 w-6" />

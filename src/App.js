@@ -7,6 +7,7 @@ import Products from "./pages/Products";
 import Contact from "./pages/Contact";
 
 import Cart from "./pages/Cart";
+import Profile from "./pages/Profile";
 
 function App() {
   // localStorage.clear();
@@ -26,6 +27,7 @@ function App() {
       <Route path="/products" element={<Products />} />
 
       <Route path="/cart" element={<Cart />} />
+      <Route path="/profile" element={<Profile />} />
     </Routes>
   );
 }
